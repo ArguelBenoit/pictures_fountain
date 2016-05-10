@@ -1,0 +1,7 @@
+body {
+  background: black;
+}
+.container {
+  margin: 20% auto 0 auto;
+  border: 1px solid white;
+}
