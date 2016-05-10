@@ -1,7 +1,10 @@
 body {
-  background: black;
+  background: rgba(0, 0, 0, 0.92);
 }
 .container {
   margin: 20% auto 0 auto;
   border: 1px solid white;
+}
+.container .tweet img {
+  border-radius: 45%;
 }
