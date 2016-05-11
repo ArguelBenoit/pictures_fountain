@@ -1,23 +1,33 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes} from 'react'; 
 import Fountain from './fountain.jsx';
 
 const Tweet = (props) => {
-  const {heightContainer, widthContainer} = props;
+  const { heightContainer, widthContainer } = props;
   const userUrl = `https://twitter.com/${props.user.name}`;
-  const tweetUrl = userUrl + '/status/' + props.id;
+  // const tweetUrl = userUrl + '/status/' + props.id;
   const profilePicture = props.pictureSize ?
     props.user.profile_picture.replace('_normal', '_' + props.pictureSize) :
     props.user.profile_picture;
 
   const styleTweet = {
     position: 'absolute',
-    marginTop: heightContainer
-  }
-
-  return <div className="tweet" style={styleTweet} >
-    <a href={tweetUrl}><img src={profilePicture}/></a>
+    height: heightContainer,
+    width: widthContainer
+  };
+  const imagePosition = {
+    x: 34,
+    y: 18
+  };
+  console.log(imagePosition.x);
+  var styleImg = {
+    position: 'absolute',
+    marginTop: heightContainer,
+    marginLeft: ( widthContainer / 2 ) - 24,
+    transform: 'translateX('+ imagePosition.x +'px) translateY('+ imagePosition.y +'px)'
+  };
+  return <div style={styleTweet} className="tweet" style={styleTweet} >
+    <img src={profilePicture} style={styleImg} />
   </div>;
-
 };
 
 Tweet.propTypes = {

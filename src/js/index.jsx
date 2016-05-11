@@ -7,8 +7,8 @@ import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import { setSize, fetchHistory, aggregate } from 'redux-ping/lib/actions/wall'
 import Fountain from './fountain.jsx';
 
-const widthContainer= 500;
-const heightContainer= 400;
+const widthContainer = 800;
+const heightContainer = 300;
 
 const reducers = {
   wall: wallReducer
