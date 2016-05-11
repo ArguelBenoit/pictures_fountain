@@ -7,5 +7,4 @@ body {
 }
 .container .tweet img {
   border-radius: 45%;
-  transition-duration: 300ms;
 }
