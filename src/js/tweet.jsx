@@ -1,8 +1,6 @@
 import React, {Component, PropTypes} from 'react'; 
 import Fountain from './fountain.jsx';
-import Tweener from 'tweener';
-
-
+import TWEEN from 'tween.js';
 class Tweet extends Component { 
 
 	constructor(props){
@@ -20,20 +18,44 @@ class Tweet extends Component {
 		clearInterval(this.animationInterval);
 	}
 	updatePosition(){
+
     var myTime = Date.now() - this.startTime;
-    var animationTime = 1000;
-    var lenghtX = 300;
-    var lenghtY = 200;
+    var animationTime = 500;
     var frames = ( animationTime / 1000 ) * 60;
+    var lenghtX = 300;
     var xOneFrame = (animationTime / frames) / (animationTime / lenghtX);
-    var yOneFrame = (animationTime / frames) / (animationTime / lenghtY);
     if (myTime < animationTime) {
       this.setState({
-        x: this.state.x + xOneFrame,
-        y: this.state.y - yOneFrame
+        x: this.state.x + xOneFrame
       });
     }
-	}
+
+    var lenghtY = 300;
+    var yOneFrame = ((animationTime / frames) / (animationTime / lenghtY));
+
+    if (myTime < animationTime) {
+      console.log(yOneFrame);
+      this.setState({
+        y: this.state.y - (yOneFrame * 0.8)
+      });
+    }
+
+    // var currentPos = 0;
+    // var incrementer = .01;
+     
+    // function test() {
+    //   incrementer += .0035;
+    //   currentPos += (1 / incrementer);
+    //   // console.log(currentPos);
+    //   if (Math.abs(currentPos) >= lenghtY) {
+    //     currentPos = 0;
+    //     incrementer = .01;
+    //   }
+    //   requestAnimationFrame(test);
+    // }
+    // test();    
+  }
+
 
 
 	render() {
@@ -58,8 +80,8 @@ class Tweet extends Component {
 	    marginLeft: ( widthContainer / 2 ) - 24,
 	    transform: 'translateX('+ this.state.x +'px) translateY('+ this.state.y +'px)'
 	  };
-	  return <div style={styleTweet} className="tweet" style={styleTweet} >
-	      <img src={profilePicture} style={styleImg} />
+	  return <div style={styleTweet} className="tweet" style={styleTweet}>
+      <img src={profilePicture} style={styleImg} />
 	  </div>;
 	}
 }
