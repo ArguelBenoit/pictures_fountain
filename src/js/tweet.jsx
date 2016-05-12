@@ -1,9 +1,10 @@
 import React, {Component, PropTypes} from 'react'; 
 import Fountain from './fountain.jsx';
-//import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-//TODO: npm uninstall
+import Tweener from 'tweener';
+
 
 class Tweet extends Component { 
+
 	constructor(props){
 		super(props);
 		this.state = {
@@ -19,17 +20,25 @@ class Tweet extends Component {
 		clearInterval(this.animationInterval);
 	}
 	updatePosition(){
-
-		this.setState({
-			x: this.state.x + 2,
-			y: this.state.y - 1
-		});
+    var myTime = Date.now() - this.startTime;
+    var animationTime = 1000;
+    var lenghtX = 300;
+    var lenghtY = 200;
+    var frames = ( animationTime / 1000 ) * 60;
+    var xOneFrame = (animationTime / frames) / (animationTime / lenghtX);
+    var yOneFrame = (animationTime / frames) / (animationTime / lenghtY);
+    if (myTime < animationTime) {
+      this.setState({
+        x: this.state.x + xOneFrame,
+        y: this.state.y - yOneFrame
+      });
+    }
 	}
+
 
 	render() {
 	  const { heightContainer, widthContainer, user, pictureSize } = this.props;
 	  const userUrl = `https://twitter.com/${user.name}`;
-	  // const tweetUrl = userUrl + '/status/' + props.id;
 	  const profilePicture = pictureSize ?
 	    user.profile_picture.replace('_normal', '_' + pictureSize) :
 	    user.profile_picture;

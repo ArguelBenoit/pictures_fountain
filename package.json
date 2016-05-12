@@ -27,6 +27,7 @@
     "redux": "^3.5.2",
     "redux-ping": "^0.2.1",
     "redux-thunk": "^2.0.1",
+    "tweener": "^0.1.3",
     "tweetping-connect": "^1.2.0",
     "watch": "^0.18.0",
     "watchify": "^3.7.0"
