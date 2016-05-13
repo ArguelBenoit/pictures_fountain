@@ -1,10 +1,11 @@
 body {
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(0, 0, 0, 0.18);
 }
 .container {
   margin: 20% auto 0 auto;
-  border: 1px dashed rgba(255, 255, 255, 0.6);
+  border: 1px dashed rgba(0, 0, 0, 0.75);
 }
 .container .tweet img {
-  border-radius: 45%;
+  border-radius: 50%;
+  border: 8px black solid;
 }
