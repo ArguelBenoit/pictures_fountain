@@ -7,14 +7,14 @@ function random(min, max) {
 
 var animationTime = 400;
 var frames = ( animationTime / 1000 ) * 60;
-var lenghtX = 200;
+var lenghtX = random(-300,300);
 var lenghtY = random(100,300);
 var oneFrame = (animationTime / frames) / (animationTime / lenghtX);
 
 
 //  x: x, t: current time, b: begInnIng value, c: change In value, d: duration
-function easeOutCubic(x, t, b, c, d) {
-  return c*((t=t/d-1)*t*t + 1) + b;
+function easeOutCubic(x, time, value, finalValue, duration) {
+  return finalValue*((time=time/duration-1)*time*time + 1) + value;
 }
 function easeInCubic(x, t, b, c, d) {
   return c*(t/=d)*t*t + b;
@@ -45,11 +45,10 @@ class Tweet extends Component {
     } else if (myTime > animationTime && myTime < animationTime*2) {
       this.setState({
         x: this.state.x + oneFrame,
-        y: easeInCubic(lenghtX, myTime - animationTime, lenghtY, 0, animationTime)
+        y: easeInCubic(lenghtX, myTime, lenghtY, 0, animationTime)
       });
     }
   }
-
 
 	render() {
 	  const { heightContainer, widthContainer, user, pictureSize } = this.props;
@@ -71,7 +70,7 @@ class Tweet extends Component {
 	    position: 'absolute',
 	    marginTop: heightContainer,
 	    marginLeft: ( widthContainer / 2 ) - 24,
-	    transform: 'translateX('+ this.state.x +'px) translateY('+ - this.state.y +'px)'
+	    transform: 'translateX('+ this.state.x +'px) translateY('+ this.state.y +'px)'
 	  };
 	  return <div style={styleTweet} className="tweet" style={styleTweet}>
       <img src={profilePicture} style={styleImg} />
