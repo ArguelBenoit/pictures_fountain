@@ -9,7 +9,7 @@ const heightContainer = 300;
 
 var animationTime = 200;
 var frames = ( animationTime / 1000 ) * 120;
-var lenghtX = random(-widthContainer/12, widthContainer/12);
+var lenghtX = random(-widthContainer/6, widthContainer/6);
 var lenghtY = random(heightContainer/3,heightContainer);
 var oneFrame = (animationTime / frames) / (animationTime / lenghtX);
 
@@ -42,10 +42,10 @@ class Tweet extends Component {
         x: this.state.x + oneFrame,
         y: easeOutCubic(myTime, 0, lenghtY, animationTime)
       });
-    } else if (myTime > animationTime && myTime < animationTime*2) {
+    } else if (myTime > animationTime*1 && myTime < animationTime*2) {
       this.setState({
         x: this.state.x + oneFrame,
-        y: easeInCubic(myTime - animationTime, lenghtY, -lenghtY, animationTime)
+        y: easeInCubic(myTime - animationTime*1, lenghtY, -lenghtY, animationTime)
       });
     } else if (myTime > animationTime*2 && myTime < animationTime*3) {
       this.setState({
@@ -57,7 +57,7 @@ class Tweet extends Component {
         x: this.state.x + (oneFrame * 0.8),
         y: (easeInCubic(myTime - animationTime*3, lenghtY, -lenghtY, animationTime)) * 0.8
       });
-    }else if (myTime > animationTime*4 && myTime < animationTime*5) {
+    } else if (myTime > animationTime*4 && myTime < animationTime*5) {
       this.setState({
         x: this.state.x + (oneFrame * 0.6),
         y: (easeOutCubic(myTime - animationTime*4, 0, lenghtY, animationTime)) * 0.6
