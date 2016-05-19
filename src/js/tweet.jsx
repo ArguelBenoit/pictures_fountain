@@ -1,23 +1,23 @@
-import React, {Component, PropTypes} from 'react'; 
-import Fountain from './fountain.jsx';
+import React, { Component, PropTypes } from 'react'; 
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-var animationTime = 400;
-var frames = ( animationTime / 1000 ) * 60;
-var lenghtX = random(-300,300);
-var lenghtY = random(100,300);
+const widthContainer = 800;
+const heightContainer = 300;
+
+var animationTime = 200;
+var frames = ( animationTime / 1000 ) * 120;
+var lenghtX = random(-widthContainer/12, widthContainer/12);
+var lenghtY = random(heightContainer/3,heightContainer);
 var oneFrame = (animationTime / frames) / (animationTime / lenghtX);
 
-
-//  x: x, t: current time, b: begInnIng value, c: change In value, d: duration
-function easeOutCubic(x, time, value, finalValue, duration) {
-  return finalValue*((time=time/duration-1)*time*time + 1) + value;
+function easeOutCubic(time, value, changeValue, duration) {
+  return changeValue*((time=time/duration-1)*time*time + 1) + value;
 }
-function easeInCubic(x, t, b, c, d) {
-  return c*(t/=d)*t*t + b;
+function easeInCubic(time, value, changeValue, duration) {
+  return changeValue*(time/=duration)*time*time + value;
 }
 
 class Tweet extends Component { 
@@ -30,7 +30,7 @@ class Tweet extends Component {
   }
   componentDidMount(){
     this.startTime = Date.now();
-    this.animationInterval = setInterval(() => this.updatePosition(), 1000 / 60);
+    this.animationInterval = setInterval(() => this.updatePosition(), 1000 / 120);
   }
   componentWillUnmoun(){
     clearInterval(this.animationInterval);
@@ -40,41 +40,56 @@ class Tweet extends Component {
     if (myTime < animationTime) {
       this.setState({
         x: this.state.x + oneFrame,
-        y: easeOutCubic(lenghtX, myTime, 0, lenghtY, animationTime)
+        y: easeOutCubic(myTime, 0, lenghtY, animationTime)
       });
     } else if (myTime > animationTime && myTime < animationTime*2) {
       this.setState({
         x: this.state.x + oneFrame,
-        y: easeInCubic(lenghtX, myTime, lenghtY, 0, animationTime)
+        y: easeInCubic(myTime - animationTime, lenghtY, -lenghtY, animationTime)
+      });
+    } else if (myTime > animationTime*2 && myTime < animationTime*3) {
+      this.setState({
+        x: this.state.x + (oneFrame * 0.8),
+        y: (easeOutCubic(myTime - animationTime*2, 0, lenghtY, animationTime)) * 0.8
+      });
+    } else if (myTime > animationTime*3 && myTime < animationTime*4) {
+      this.setState({
+        x: this.state.x + (oneFrame * 0.8),
+        y: (easeInCubic(myTime - animationTime*3, lenghtY, -lenghtY, animationTime)) * 0.8
+      });
+    }else if (myTime > animationTime*4 && myTime < animationTime*5) {
+      this.setState({
+        x: this.state.x + (oneFrame * 0.6),
+        y: (easeOutCubic(myTime - animationTime*4, 0, lenghtY, animationTime)) * 0.6
+      });
+    } else if (myTime > animationTime*5 && myTime < animationTime*6) {
+      this.setState({
+        x: this.state.x + (oneFrame * 0.6),
+        y: (easeInCubic(myTime - animationTime*5, lenghtY, -lenghtY, animationTime)) * 0.6
       });
     }
   }
 
 	render() {
-	  const { heightContainer, widthContainer, user, pictureSize } = this.props;
-	  const userUrl = `https://twitter.com/${user.name}`;
-	  const profilePicture = pictureSize ?
-	    user.profile_picture.replace('_normal', '_' + pictureSize) :
-	    user.profile_picture;
+    const { heightContainer, widthContainer, user, pictureSize } = this.props;
+    const profilePicture = pictureSize ?
+      user.profile_picture.replace('_normal', '_' + pictureSize) :
+      user.profile_picture;
 
-	  const styleTweet = {
-	    position: 'absolute',
-	    height: heightContainer,
-	    width: widthContainer
-	  };
-	  var imagePosition = {
-	    x: 0,
-	    y: 0
-	  };
-	  var styleImg = {
-	    position: 'absolute',
-	    marginTop: heightContainer,
-	    marginLeft: ( widthContainer / 2 ) - 24,
-	    transform: 'translateX('+ this.state.x +'px) translateY('+ this.state.y +'px)'
-	  };
-	  return <div style={styleTweet} className="tweet" style={styleTweet}>
+    const styleTweet = {
+      position: 'absolute',
+      height: heightContainer,
+      width: widthContainer
+    };
+    var styleImg = {
+      position: 'absolute',
+      marginTop: heightContainer,
+      marginLeft: ( widthContainer / 2 ) - 24,
+      transform: 'translateX('+ this.state.x +'px) translateY('+ -this.state.y +'px)'
+    };
+    return <div style={styleTweet} className="tweet">
       <img src={profilePicture} style={styleImg} />
-	  </div>;
+    </div>;
 	}
 }
 
@@ -83,6 +98,8 @@ Tweet.propTypes = {
   pictureSize: PropTypes.string,
   user: PropTypes.object.isRequired,
   entities: PropTypes.object.isRequired,
-  text: PropTypes.string
+  text: PropTypes.string,
+  heightContainer: PropTypes.number,
+  widthContainer: PropTypes.number
 };
 export default Tweet;
