@@ -7,22 +7,18 @@ var animationTime = 300;
 function random(min, max) {
   return Math.random() * (max - min) + min;
 }
-
-var frames = ( animationTime / 1000 ) * 180;
-var lenghtX = random((widthContainer/24)*1.5, (widthContainer/24)*2);
-var lenghtY = random(heightContainer/2, heightContainer - 100);
-var oneFrame = (animationTime / frames) / (animationTime / lenghtX);
-console.log((widthContainer/24)*1.3);
-console.log((widthContainer/24)*2);
-
-
 function easeOutCubic(time, value, changeValue, duration) {
   return changeValue*((time=time/duration-1)*time*time + 1) + value;
 }
-
 function easeInCubic(time, value, changeValue, duration) {
   return changeValue*(time/=duration)*time*time + value;
 }
+
+var frames = ( animationTime / 1000 ) * 180;
+var lenghtX = ( Math.random() < 0.5 ? -1 : 1 ) * ( random((widthContainer/24)*1.5, (widthContainer/24)*2) );
+var lenghtY = random ( heightContainer/4, heightContainer - 100);
+var oneFrame = ( animationTime / frames ) / ( animationTime / lenghtX );
+
 
 class Tweet extends Component { 
   constructor(props){
@@ -63,13 +59,13 @@ class Tweet extends Component {
       });
     } else if (myTime > animationTime*4 && myTime < animationTime*5) {
       this.setState({
-        x: this.state.x + (oneFrame * 0.6),
-        y: (easeOutCubic(myTime - animationTime*4, 0, lenghtY, animationTime)) * 0.6
+        x: this.state.x + (oneFrame * 0.5),
+        y: (easeOutCubic(myTime - animationTime*4, 0, lenghtY, animationTime)) * 0.5
       });
     } else if (myTime > animationTime*5 && myTime < animationTime*6) {
       this.setState({
-        x: this.state.x + (oneFrame * 0.6),
-        y: (easeInCubic(myTime - animationTime*5, lenghtY, -lenghtY -96, animationTime)) * 0.6
+        x: this.state.x + (oneFrame * 0.5),
+        y: (easeInCubic(myTime - animationTime*5, lenghtY, -lenghtY*2, animationTime)) * 0.5
       });
     }
   }
