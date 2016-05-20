@@ -1,21 +1,25 @@
 import React, { Component, PropTypes } from 'react'; 
 
+const widthContainer = 1200;
+const heightContainer = 300;
+
 function random(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-const widthContainer = 800;
-const heightContainer = 300;
-
 var animationTime = 200;
 var frames = ( animationTime / 1000 ) * 120;
-var lenghtX = random(-widthContainer/6, widthContainer/6);
-var lenghtY = random(heightContainer/3,heightContainer);
+var lenghtX = random((widthContainer/24)*1.5, (widthContainer/24)*2);
+var lenghtY = random(heightContainer/2, heightContainer);
 var oneFrame = (animationTime / frames) / (animationTime / lenghtX);
+console.log((widthContainer/24)*1.3);
+console.log((widthContainer/24)*2);
+
 
 function easeOutCubic(time, value, changeValue, duration) {
   return changeValue*((time=time/duration-1)*time*time + 1) + value;
 }
+
 function easeInCubic(time, value, changeValue, duration) {
   return changeValue*(time/=duration)*time*time + value;
 }
