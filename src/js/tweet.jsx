@@ -2,15 +2,15 @@ import React, { Component, PropTypes } from 'react';
 
 const widthContainer = 1200;
 const heightContainer = 300;
+var animationTime = 300;
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-var animationTime = 200;
-var frames = ( animationTime / 1000 ) * 120;
+var frames = ( animationTime / 1000 ) * 180;
 var lenghtX = random((widthContainer/24)*1.5, (widthContainer/24)*2);
-var lenghtY = random(heightContainer/2, heightContainer);
+var lenghtY = random(heightContainer/2, heightContainer - 100);
 var oneFrame = (animationTime / frames) / (animationTime / lenghtX);
 console.log((widthContainer/24)*1.3);
 console.log((widthContainer/24)*2);
@@ -34,7 +34,7 @@ class Tweet extends Component {
   }
   componentDidMount(){
     this.startTime = Date.now();
-    this.animationInterval = setInterval(() => this.updatePosition(), 1000 / 120);
+    this.animationInterval = setInterval(() => this.updatePosition(), 1000 / 180);
   }
   componentWillUnmoun(){
     clearInterval(this.animationInterval);
@@ -69,7 +69,7 @@ class Tweet extends Component {
     } else if (myTime > animationTime*5 && myTime < animationTime*6) {
       this.setState({
         x: this.state.x + (oneFrame * 0.6),
-        y: (easeInCubic(myTime - animationTime*5, lenghtY, -lenghtY, animationTime)) * 0.6
+        y: (easeInCubic(myTime - animationTime*5, lenghtY, -lenghtY -96, animationTime)) * 0.6
       });
     }
   }
@@ -87,7 +87,7 @@ class Tweet extends Component {
     };
     var styleImg = {
       position: 'absolute',
-      marginTop: heightContainer,
+      marginTop: heightContainer - 48,
       marginLeft: ( widthContainer / 2 ) - 24,
       transform: 'translateX('+ this.state.x +'px) translateY('+ -this.state.y +'px)'
     };
