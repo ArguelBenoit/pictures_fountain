@@ -4,10 +4,10 @@ import React from 'react';
 import thunk from 'redux-thunk';
 import wallReducer from 'redux-ping/lib/reducers/wall';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
-import { setSize, fetchHistory, aggregate } from 'redux-ping/lib/actions/wall'
+import { setSize, fetchHistory, aggregate } from 'redux-ping/lib/actions/wall';
 import Fountain from './fountain.jsx';
 
-const widthContainer = 800;
+const widthContainer = 1200;
 const heightContainer = 300;
 
 const reducers = {
