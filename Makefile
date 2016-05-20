@@ -4,7 +4,7 @@ JS_TARGET = public/main.js
 
 LESS_DIR = src/less/
 LESS_SRC = $(LESS_DIR)index.less
-LESS_TARGET = public/styles.css
+LESS_TARGET = public/style.css
 
 WATCHIFY = ./node_modules/.bin/watchify
 EXORCIST = ./node_modules/.bin/exorcist
