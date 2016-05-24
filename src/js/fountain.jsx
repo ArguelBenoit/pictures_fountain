@@ -1,9 +1,8 @@
-import wallSelector from 'redux-ping/lib/selectors/wall';
 import React, { PropTypes } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Tweet from './tweet.jsx';
 
-function Fountain(props){
+function Fountain(props) {
   const {heightContainer, widthContainer} = props;
   const tweets = props.wall;
   const styleContainer = {
@@ -21,8 +20,8 @@ Fountain.propTypes = {
   widthContainer: PropTypes.number,
   animationTime: PropTypes.number
 };
-export default connect(({ wall }) => {
+export default connect(wall => {
   return {
-    wall: wallSelector.all(wall)
+    wall
   };
 })(Fountain);
