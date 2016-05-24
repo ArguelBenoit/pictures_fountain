@@ -2,6 +2,9 @@ import React, { Component, PropTypes } from 'react';
 
 const widthContainer = 1200;
 const heightContainer = 300;
+const animationTime = 310;
+const degMin = -4;
+const degMax = 4;
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -13,9 +16,7 @@ function easeInCubic(time, value, changeValue, duration) {
   return changeValue*(time/=duration)*time*time + value;
 }
 
-var animationTime = 200;
 var frames = ( animationTime / 1000 ) * 180;
-
 var oneFrame;
 
 class Tweet extends Component { 
@@ -24,6 +25,8 @@ class Tweet extends Component {
     this.state = {
       x: 0,
       y: 0,
+      deg: 0,
+      randomDeg: random(degMin, degMax),
       lenghtX: ( Math.random() < 0.5 ? -1 : 1 ) * ( random((widthContainer/24)*1.5, (widthContainer/24)*2) ),
       lenghtY: random ( heightContainer/4, heightContainer - 100)
     };
@@ -41,32 +44,38 @@ class Tweet extends Component {
     if (myTime < animationTime) {
       this.setState({
         x: this.state.x + oneFrame,
-        y: easeOutCubic(myTime, 0, this.state.lenghtY, animationTime)
+        y: easeOutCubic(myTime, 0, this.state.lenghtY, animationTime),
+        deg: this.state.deg + this.state.randomDeg
       });
     } else if (myTime > animationTime*1 && myTime < animationTime*2) {
       this.setState({
         x: this.state.x + oneFrame,
-        y: easeInCubic(myTime - animationTime*1, this.state.lenghtY, -this.state.lenghtY, animationTime)
+        y: easeInCubic(myTime - animationTime*1, this.state.lenghtY, -this.state.lenghtY, animationTime),
+        deg: this.state.deg + this.state.randomDeg
       });
     } else if (myTime > animationTime*2 && myTime < animationTime*3) {
       this.setState({
         x: this.state.x + (oneFrame * 0.8),
-        y: (easeOutCubic(myTime - animationTime*2, 0, this.state.lenghtY, animationTime)) * 0.8
+        y: (easeOutCubic(myTime - animationTime*2, 0, this.state.lenghtY, animationTime)) * 0.8,
+        deg: this.state.deg + this.state.randomDeg
       });
     } else if (myTime > animationTime*3 && myTime < animationTime*4) {
       this.setState({
         x: this.state.x + (oneFrame * 0.8),
-        y: (easeInCubic(myTime - animationTime*3, this.state.lenghtY, -this.state.lenghtY, animationTime)) * 0.8
+        y: (easeInCubic(myTime - animationTime*3, this.state.lenghtY, -this.state.lenghtY, animationTime)) * 0.8,
+        deg: this.state.deg + this.state.randomDeg
       });
     } else if (myTime > animationTime*4 && myTime < animationTime*5) {
       this.setState({
         x: this.state.x + (oneFrame * 0.5),
-        y: (easeOutCubic(myTime - animationTime*4, 0, this.state.lenghtY, animationTime)) * 0.5
+        y: (easeOutCubic(myTime - animationTime*4, 0, this.state.lenghtY, animationTime)) * 0.5,
+        deg: this.state.deg + this.state.randomDeg
       });
     } else if (myTime > animationTime*5 && myTime < animationTime*6) {
       this.setState({
         x: this.state.x + (oneFrame * 0.5),
-        y: (easeInCubic(myTime - animationTime*5, this.state.lenghtY, -this.state.lenghtY*2, animationTime)) * 0.5
+        y: (easeInCubic(myTime - animationTime*5, this.state.lenghtY, -this.state.lenghtY*2, animationTime)) * 0.5,
+        deg: this.state.deg + this.state.randomDeg
       });
     }
   }
@@ -85,7 +94,7 @@ class Tweet extends Component {
       position: 'absolute',
       marginTop: heightContainer - 48,
       marginLeft: ( widthContainer / 2 ) - 24,
-      transform: 'translateX('+ this.state.x +'px) translateY('+ -this.state.y +'px)'
+      transform: 'translateX('+ this.state.x +'px) translateY('+ -this.state.y +'px) rotate('+ this.state.deg +'deg)'
     };
     return <div style={styleTweet} className="tweet">
       <img src={profilePicture} style={styleImg} />
