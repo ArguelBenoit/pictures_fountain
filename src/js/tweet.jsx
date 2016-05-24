@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import raf from 'raf';
 
 const widthContainer = 1200;
 const heightContainer = 300;
@@ -33,12 +34,16 @@ class Tweet extends Component {
   }
   componentDidMount(){
     this.startTime = Date.now();
+    raf(() => this.updatePosition());
     this.animationInterval = setInterval(() => this.updatePosition(), 1000 / 180);
   }
   componentWillUnmoun(){
     clearInterval(this.animationInterval);
   }
   updatePosition(){
+    if(!this.isMount()){
+      return;
+    }
     var myTime = Date.now() - this.startTime;
     oneFrame = ( animationTime / frames ) / ( animationTime / this.state.lenghtX );
     if (myTime < animationTime) {
