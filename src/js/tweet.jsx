@@ -13,12 +13,11 @@ function easeInCubic(time, value, changeValue, duration) {
   return changeValue*(time/=duration)*time*time + value;
 }
 
-var animationTime = 300;
+var animationTime = 200;
 var frames = ( animationTime / 1000 ) * 180;
-var lenghtX = ( Math.random() < 0.5 ? -1 : 1 ) * ( random((widthContainer/24)*1.5, (widthContainer/24)*2) );
-var lenghtY = random ( heightContainer/4, heightContainer - 100);
-var oneFrame = ( animationTime / frames ) / ( animationTime / lenghtX );
-
+var lenghtX;
+var lenghtY;
+var oneFrame;
 
 class Tweet extends Component { 
   constructor(props){
@@ -31,6 +30,9 @@ class Tweet extends Component {
   componentDidMount(){
     this.startTime = Date.now();
     this.animationInterval = setInterval(() => this.updatePosition(), 1000 / 180);
+    lenghtX = ( Math.random() < 0.5 ? -1 : 1 ) * ( random((widthContainer/24)*1.5, (widthContainer/24)*2) );
+    lenghtY = random ( heightContainer/4, heightContainer - 100);
+    oneFrame = ( animationTime / frames ) / ( animationTime / lenghtX );
   }
   componentWillUnmoun(){
     clearInterval(this.animationInterval);
