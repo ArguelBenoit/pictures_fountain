@@ -3,8 +3,8 @@ import React, { Component, PropTypes } from 'react';
 const widthContainer = 1200;
 const heightContainer = 300;
 const animationTime = 310;
-const degMin = -4;
-const degMax = 4;
+const degMin = -3;
+const degMax = 3;
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -74,7 +74,13 @@ class Tweet extends Component {
     } else if (myTime > animationTime*5 && myTime < animationTime*6) {
       this.setState({
         x: this.state.x + (oneFrame * 0.5),
-        y: (easeInCubic(myTime - animationTime*5, this.state.lenghtY, -this.state.lenghtY*2, animationTime)) * 0.5,
+        y: (easeInCubic(myTime - animationTime*5, this.state.lenghtY, -this.state.lenghtY, animationTime)) * 0.5,
+        deg: this.state.deg + this.state.randomDeg
+      });
+    } else if (myTime > animationTime*6 && myTime < animationTime*7) {
+      this.setState({
+        x: this.state.x + (oneFrame * 0.5),
+        y: easeInCubic(myTime - animationTime*6, 0, -this.state.lenghtY, animationTime),
         deg: this.state.deg + this.state.randomDeg
       });
     }
