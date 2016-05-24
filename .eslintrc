@@ -1,6 +1,3 @@
 {
-  "extends": "lightstream",
-  "plugins": [
-    "react"
-  ]
+  "extends": "lightstream"
 }
