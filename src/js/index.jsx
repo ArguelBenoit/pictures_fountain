@@ -11,14 +11,27 @@ const attributes = {
   widthContainer,
   heightContainer
 };
-const {connect} = createConnection('nutella', {
+const {connect, load} = createConnection('nutella', {
   hostname: 'hq.tweetping.net'
 });
 
-connect('wall', post => {
+function dispatchPost(post) {
   store.dispatch({
     type: 'NEW_POST',
     post
+  });
+}
+
+connect('wall', dispatchPost);
+load('wall/', {
+  query: {
+    size: 500
+  }
+}).then(posts => {
+  posts.forEach((post, i) => {
+    setTimeout(() => {
+      dispatchPost(post);
+    }, i * 200);
   });
 });
 

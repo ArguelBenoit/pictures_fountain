@@ -33,15 +33,16 @@ class Tweet extends Component {
     };
   }
   componentDidMount(){
-    this.startTime = Date.now();
-    raf(() => this.updatePosition());
-    this.animationInterval = setInterval(() => this.updatePosition(), 1000 / 180);
+    this._mounted = true;
   }
-  componentWillUnmoun(){
-    clearInterval(this.animationInterval);
+  componentWillUnmount(){
+    this._mounted = false;
   }
   updatePosition(){
-    if(!this.isMount()){
+    if(!this.startTime){
+      this.startTime = Date.now();
+    }
+    if(!this._mounted){
       return;
     }
     var myTime = Date.now() - this.startTime;
@@ -89,6 +90,7 @@ class Tweet extends Component {
         deg: this.state.deg + this.state.randomDeg
       });
     }
+    raf(() => this.updatePosition());
   }
   render() {
     const { heightContainer, widthContainer, user, pictureSize } = this.props;
@@ -108,7 +110,7 @@ class Tweet extends Component {
       transform: 'translateX('+ this.state.x +'px) translateY('+ -this.state.y +'px) rotate('+ this.state.deg +'deg)'
     };
     return <div style={styleTweet} className="tweet">
-      <img src={profilePicture} style={styleImg} />
+      <img src={profilePicture} style={styleImg} onLoad={() => this.updatePosition()} />
     </div>;
   }
 }
