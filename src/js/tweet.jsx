@@ -1,8 +1,7 @@
-import React, { Component, PropTypes } from 'react'; 
+import React, { Component, PropTypes } from 'react';
 
 const widthContainer = 1200;
 const heightContainer = 300;
-var animationTime = 300;
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -14,6 +13,7 @@ function easeInCubic(time, value, changeValue, duration) {
   return changeValue*(time/=duration)*time*time + value;
 }
 
+var animationTime = 300;
 var frames = ( animationTime / 1000 ) * 180;
 var lenghtX = ( Math.random() < 0.5 ? -1 : 1 ) * ( random((widthContainer/24)*1.5, (widthContainer/24)*2) );
 var lenghtY = random ( heightContainer/4, heightContainer - 100);
@@ -69,7 +69,6 @@ class Tweet extends Component {
       });
     }
   }
-
 	render() {
     const { heightContainer, widthContainer, user, pictureSize } = this.props;
     const profilePicture = pictureSize ?
@@ -98,7 +97,6 @@ Tweet.propTypes = {
   pictureSize: PropTypes.string,
   user: PropTypes.object.isRequired,
   entities: PropTypes.object.isRequired,
-  text: PropTypes.string,
   heightContainer: PropTypes.number,
   widthContainer: PropTypes.number
 };

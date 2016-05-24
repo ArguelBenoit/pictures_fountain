@@ -1,6 +1,7 @@
 import connect from 'tweetping-connect';
 import { render } from 'react-dom';
 import React from 'react';
+import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import wallReducer from 'redux-ping/lib/reducers/wall';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
@@ -19,7 +20,7 @@ const store = createStore(combineReducers(reducers), undefined, compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
-store.dispatch(setSize(1));
+store.dispatch(setSize(3));
 
 setTimeout(() => {
   store.dispatch(fetchHistory('nutella', {
@@ -27,11 +28,18 @@ setTimeout(() => {
   }));
 });
 
-connect('nutella', 'wall', (data) => {
-  store.dispatch(aggregate(data));
-}, 'wss://tweetping.net/'); 
+connect('nutella', 'wall', (post) => {
+  store.dispatch(aggregate(post));
+}, 'wss://hq.tweetping.net/'); 
+
+const attributes = {
+  widthContainer,
+  heightContainer
+};
 
 render(
-  <Fountain store={store} widthContainer={widthContainer} heightContainer={heightContainer} />,
+  <Provider store={store}>
+    <Fountain {...attributes} />
+  </Provider>,
   document.getElementById('fountain')
 );
