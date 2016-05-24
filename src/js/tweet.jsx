@@ -15,8 +15,7 @@ function easeInCubic(time, value, changeValue, duration) {
 
 var animationTime = 200;
 var frames = ( animationTime / 1000 ) * 180;
-var lenghtX;
-var lenghtY;
+
 var oneFrame;
 
 class Tweet extends Component { 
@@ -24,54 +23,54 @@ class Tweet extends Component {
     super(props);
     this.state = {
       x: 0,
-      y: 0
+      y: 0,
+      lenghtX: ( Math.random() < 0.5 ? -1 : 1 ) * ( random((widthContainer/24)*1.5, (widthContainer/24)*2) ),
+      lenghtY: random ( heightContainer/4, heightContainer - 100)
     };
   }
   componentDidMount(){
     this.startTime = Date.now();
     this.animationInterval = setInterval(() => this.updatePosition(), 1000 / 180);
-    lenghtX = ( Math.random() < 0.5 ? -1 : 1 ) * ( random((widthContainer/24)*1.5, (widthContainer/24)*2) );
-    lenghtY = random ( heightContainer/4, heightContainer - 100);
-    oneFrame = ( animationTime / frames ) / ( animationTime / lenghtX );
   }
   componentWillUnmoun(){
     clearInterval(this.animationInterval);
   }
   updatePosition(){
     var myTime = Date.now() - this.startTime;
+    oneFrame = ( animationTime / frames ) / ( animationTime / this.state.lenghtX );
     if (myTime < animationTime) {
       this.setState({
         x: this.state.x + oneFrame,
-        y: easeOutCubic(myTime, 0, lenghtY, animationTime)
+        y: easeOutCubic(myTime, 0, this.state.lenghtY, animationTime)
       });
     } else if (myTime > animationTime*1 && myTime < animationTime*2) {
       this.setState({
         x: this.state.x + oneFrame,
-        y: easeInCubic(myTime - animationTime*1, lenghtY, -lenghtY, animationTime)
+        y: easeInCubic(myTime - animationTime*1, this.state.lenghtY, -this.state.lenghtY, animationTime)
       });
     } else if (myTime > animationTime*2 && myTime < animationTime*3) {
       this.setState({
         x: this.state.x + (oneFrame * 0.8),
-        y: (easeOutCubic(myTime - animationTime*2, 0, lenghtY, animationTime)) * 0.8
+        y: (easeOutCubic(myTime - animationTime*2, 0, this.state.lenghtY, animationTime)) * 0.8
       });
     } else if (myTime > animationTime*3 && myTime < animationTime*4) {
       this.setState({
         x: this.state.x + (oneFrame * 0.8),
-        y: (easeInCubic(myTime - animationTime*3, lenghtY, -lenghtY, animationTime)) * 0.8
+        y: (easeInCubic(myTime - animationTime*3, this.state.lenghtY, -this.state.lenghtY, animationTime)) * 0.8
       });
     } else if (myTime > animationTime*4 && myTime < animationTime*5) {
       this.setState({
         x: this.state.x + (oneFrame * 0.5),
-        y: (easeOutCubic(myTime - animationTime*4, 0, lenghtY, animationTime)) * 0.5
+        y: (easeOutCubic(myTime - animationTime*4, 0, this.state.lenghtY, animationTime)) * 0.5
       });
     } else if (myTime > animationTime*5 && myTime < animationTime*6) {
       this.setState({
         x: this.state.x + (oneFrame * 0.5),
-        y: (easeInCubic(myTime - animationTime*5, lenghtY, -lenghtY*2, animationTime)) * 0.5
+        y: (easeInCubic(myTime - animationTime*5, this.state.lenghtY, -this.state.lenghtY*2, animationTime)) * 0.5
       });
     }
   }
-	render() {
+  render() {
     const { heightContainer, widthContainer, user, pictureSize } = this.props;
     const profilePicture = pictureSize ?
       user.profile_picture.replace('_normal', '_' + pictureSize) :
@@ -91,7 +90,7 @@ class Tweet extends Component {
     return <div style={styleTweet} className="tweet">
       <img src={profilePicture} style={styleImg} />
     </div>;
-	}
+  }
 }
 
 Tweet.propTypes = {

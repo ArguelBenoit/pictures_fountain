@@ -20,7 +20,7 @@ const store = createStore(combineReducers(reducers), undefined, compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
-store.dispatch(setSize(3));
+store.dispatch(setSize(5));
 
 setTimeout(() => {
   store.dispatch(fetchHistory('nutella', {

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import Tweet from './tweet.jsx';
 
 function Fountain(props){
-  const { heightContainer, widthContainer } = props;
+  const {heightContainer, widthContainer} = props;
   const tweets = props.wall;
   const styleContainer = {
     width: widthContainer,
@@ -17,9 +17,9 @@ function Fountain(props){
 
 Fountain.propTypes = {
   wall: PropTypes.any,
-  animationTime: PropTypes.number,
   heightContainer: PropTypes.number,
-  widthContainer: PropTypes.number
+  widthContainer: PropTypes.number,
+  animationTime: PropTypes.number
 };
 export default connect(({ wall }) => {
   return {
