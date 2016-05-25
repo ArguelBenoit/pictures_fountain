@@ -1,7 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
+import { limit } from './config';
 import thunk from 'redux-thunk';
-
-const limit = 500;
 
 function wall(state = [], action) {
   const {post, type} = action;

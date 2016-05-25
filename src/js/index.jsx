@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import Fountain from './fountain.jsx';
 import store from './store';
+import { limit } from './config';
 
 const widthContainer = 1200;
 const heightContainer = 300;
@@ -25,7 +26,7 @@ function dispatchPost(post) {
 connect('wall', dispatchPost);
 load('wall/', {
   query: {
-    size: 500
+    size: limit
   }
 }).then(posts => {
   posts.forEach((post, i) => {
