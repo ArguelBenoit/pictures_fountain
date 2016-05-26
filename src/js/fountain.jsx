@@ -7,12 +7,14 @@ function Fountain(props) {
   const tweets = props.wall;
   var styleContainer = {
     width: widthContainer,
-    height: heightContainer
+    height: heightContainer,
+    marginLeft: 'auto'
   };
 
   var widthViewport = window.innerWidth;
   if(widthViewport < widthContainer) {
-    styleContainer.width = widthViewport;
+    styleContainer.width = widthViewport - 20;
+    styleContainer.marginLeft = 10;
   }
 
   return <div className="container" style={styleContainer}>

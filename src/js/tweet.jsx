@@ -6,25 +6,20 @@ var width = widthContainer;
 var frames = ( animationTime / 1000 ) * 50;
 var oneFrame;
 var marginLeft = ( width / 2 ) - 24;
-
 if(window.innerWidth < width) {
-  width = window.innerWidth;
+  width = window.innerWidth - 20;
   marginLeft = ( window.innerWidth / 2 ) - 24;
 }
-
 function reSize() {
   if(window.innerWidth < width) {
-    width = window.innerWidth;
+    width = window.innerWidth - 20;
     marginLeft = ( window.innerWidth / 2 ) - 24;
   } else {
     width = widthContainer;
     marginLeft = ( widthContainer / 2 ) - 24;
   }
-  console.log(marginLeft);
 }
-
 window.addEventListener('resize', reSize);
-
 function random(min, max) {
   return Math.random() * (max - min) + min;
 }
@@ -34,7 +29,6 @@ function easeOutCubic(time, value, changeValue, duration) {
 function easeInCubic(time, value, changeValue, duration) {
   return changeValue*(time/=duration)*time*time + value;
 }
-
 class Tweet extends Component { 
   constructor(props){
     super(props);
