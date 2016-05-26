@@ -6,12 +6,6 @@ import Fountain from './fountain.jsx';
 import store from './store';
 import { limit } from './config';
 
-const widthContainer = 1200;
-const heightContainer = 300;
-const attributes = {
-  widthContainer,
-  heightContainer
-};
 const {connect, load} = createConnection('nutella', {
   hostname: 'hq.tweetping.net'
 });
@@ -38,7 +32,7 @@ load('wall/', {
 
 render(
   <Provider store={store}>
-    <Fountain {...attributes} />
+    <Fountain />
   </Provider>,
   document.getElementById('fountain')
 );

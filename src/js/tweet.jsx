@@ -1,11 +1,6 @@
+import { widthContainer, heightContainer, degMin, degMax, animationTime } from './config';
 import React, { Component, PropTypes } from 'react';
 import raf from 'raf';
-
-const widthContainer = 1200;
-const heightContainer = 300;
-const animationTime = 310;
-const degMin = -3;
-const degMax = 3;
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -93,7 +88,7 @@ class Tweet extends Component {
     raf(() => this.updatePosition());
   }
   render() {
-    const { heightContainer, widthContainer, user, pictureSize } = this.props;
+    const { user, pictureSize } = this.props;
     const profilePicture = pictureSize ?
       user.profile_picture.replace('_normal', '_' + pictureSize) :
       user.profile_picture;
@@ -119,8 +114,6 @@ Tweet.propTypes = {
   index: PropTypes.number,
   pictureSize: PropTypes.string,
   user: PropTypes.object.isRequired,
-  entities: PropTypes.object.isRequired,
-  heightContainer: PropTypes.number,
-  widthContainer: PropTypes.number
+  entities: PropTypes.object.isRequired
 };
 export default Tweet;
