@@ -5,10 +5,17 @@ import Tweet from './tweet.jsx';
 
 function Fountain(props) {
   const tweets = props.wall;
-  const styleContainer = {
+  var styleContainer = {
     width: widthContainer,
     height: heightContainer
   };
+
+  var widthViewport = window.innerWidth;
+  if(widthViewport < widthContainer) {
+    styleContainer.width = widthViewport;
+  }
+
+
   return <div className="container" style={styleContainer}>
     {tweets.map((item, i) => <Tweet key={item._id} index={i} {...item} />)}
   </div>;

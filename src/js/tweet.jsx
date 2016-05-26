@@ -2,6 +2,12 @@ import { widthContainer, heightContainer, degMin, degMax, animationTime } from '
 import React, { Component, PropTypes } from 'react';
 import raf from 'raf';
 
+var viewport = window.innerWidth;
+var width = widthContainer;
+if(viewport < width) {
+  width = viewport;
+}
+
 function random(min, max) {
   return Math.random() * (max - min) + min;
 }
@@ -12,7 +18,7 @@ function easeInCubic(time, value, changeValue, duration) {
   return changeValue*(time/=duration)*time*time + value;
 }
 
-var frames = ( animationTime / 1000 ) * 180;
+var frames = ( animationTime / 1000 ) * 40;
 var oneFrame;
 
 class Tweet extends Component { 
@@ -23,7 +29,7 @@ class Tweet extends Component {
       y: 0,
       deg: 0,
       randomDeg: random(degMin, degMax),
-      lenghtX: ( Math.random() < 0.5 ? -1 : 1 ) * ( random((widthContainer/24)*1.5, (widthContainer/24)*2) ),
+      lenghtX: ( Math.random() < 0.5 ? -1 : 1 ) * ( random((width/24)*1.5, (width/24)*2) ),
       lenghtY: random ( heightContainer/4, heightContainer - 100)
     };
   }
@@ -96,12 +102,12 @@ class Tweet extends Component {
     const styleTweet = {
       position: 'absolute',
       height: heightContainer,
-      width: widthContainer
+      width: width
     };
     var styleImg = {
       position: 'absolute',
       marginTop: heightContainer - 48,
-      marginLeft: ( widthContainer / 2 ) - 24,
+      marginLeft: ( width / 2 ) - 24,
       transform: 'translateX('+ this.state.x +'px) translateY('+ -this.state.y +'px) rotate('+ this.state.deg +'deg)'
     };
     return <div style={styleTweet} className="tweet">
