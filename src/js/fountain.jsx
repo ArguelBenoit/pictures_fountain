@@ -10,13 +10,11 @@ function Fountain(props) {
     height: heightContainer,
     marginLeft: 'auto'
   };
-
   var widthViewport = window.innerWidth;
   if(widthViewport < widthContainer) {
     styleContainer.width = widthViewport - 20;
     styleContainer.marginLeft = 10;
   }
-
   return <div className="container" style={styleContainer}>
     {tweets.map((item, i) => <Tweet key={item._id} index={i} {...item} />)}
   </div>;
