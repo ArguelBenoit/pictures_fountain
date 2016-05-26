@@ -2,11 +2,28 @@ import { widthContainer, heightContainer, degMin, degMax, animationTime } from '
 import React, { Component, PropTypes } from 'react';
 import raf from 'raf';
 
-var viewport = window.innerWidth;
 var width = widthContainer;
-if(viewport < width) {
-  width = viewport;
+var frames = ( animationTime / 1000 ) * 50;
+var oneFrame;
+var marginLeft = ( width / 2 ) - 24;
+
+if(window.innerWidth < width) {
+  width = window.innerWidth;
+  marginLeft = ( window.innerWidth / 2 ) - 24;
 }
+
+function reSize() {
+  if(window.innerWidth < width) {
+    width = window.innerWidth;
+    marginLeft = ( window.innerWidth / 2 ) - 24;
+  } else {
+    width = widthContainer;
+    marginLeft = ( widthContainer / 2 ) - 24;
+  }
+  console.log(marginLeft);
+}
+
+window.addEventListener('resize', reSize);
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -17,9 +34,6 @@ function easeOutCubic(time, value, changeValue, duration) {
 function easeInCubic(time, value, changeValue, duration) {
   return changeValue*(time/=duration)*time*time + value;
 }
-
-var frames = ( animationTime / 1000 ) * 40;
-var oneFrame;
 
 class Tweet extends Component { 
   constructor(props){
@@ -98,17 +112,16 @@ class Tweet extends Component {
     const profilePicture = pictureSize ?
       user.profile_picture.replace('_normal', '_' + pictureSize) :
       user.profile_picture;
-
-    const styleTweet = {
+    var styleTweet = {
       position: 'absolute',
       height: heightContainer,
       width: width
     };
     var styleImg = {
       position: 'absolute',
+      transform: 'translateX('+ this.state.x +'px) translateY('+ -this.state.y +'px) rotate('+ this.state.deg +'deg)',
       marginTop: heightContainer - 48,
-      marginLeft: ( width / 2 ) - 24,
-      transform: 'translateX('+ this.state.x +'px) translateY('+ -this.state.y +'px) rotate('+ this.state.deg +'deg)'
+      marginLeft: marginLeft
     };
     return <div style={styleTweet} className="tweet">
       <img src={profilePicture} style={styleImg} onLoad={() => this.updatePosition()} />

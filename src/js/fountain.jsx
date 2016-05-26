@@ -15,7 +15,6 @@ function Fountain(props) {
     styleContainer.width = widthViewport;
   }
 
-
   return <div className="container" style={styleContainer}>
     {tweets.map((item, i) => <Tweet key={item._id} index={i} {...item} />)}
   </div>;
