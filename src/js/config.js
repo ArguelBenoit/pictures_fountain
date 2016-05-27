@@ -1,12 +1,17 @@
-export const limit = 100;
-export const animationTime = 300;
 
+// main settings
+export const limit = 50;
+export const animationTime = 500;
+
+// container
 export const widthContainer = 1000;
 export const heightContainer = 250;
 
+// pictures
 export const degMin = -3;
 export const degMax = 3;
 
+// hashtags
 export const colorHashtag = '#00c7ff';
-export const fontSizeHashtag = '15px';
-export const tiltHashtag = -13;
+export const fontSizeHashtag = '18px';
+export const tiltHashtag = -5;

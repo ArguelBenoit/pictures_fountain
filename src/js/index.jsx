@@ -6,9 +6,7 @@ import Fountain from './fountain.jsx';
 import store from './store';
 import { limit } from './config';
 
-const {connect, load} = createConnection('nutella', {
-  hostname: 'hq.tweetping.net'
-});
+const {connect, load} = createConnection('uefa');
 
 function dispatchPost(post) {
   store.dispatch({
@@ -26,7 +24,7 @@ load('wall/', {
   posts.forEach((post, i) => {
     setTimeout(() => {
       dispatchPost(post);
-    }, i * 200);
+    }, i * 1000);
   });
 });
 

@@ -44,11 +44,14 @@ class Tweet extends Component {
     this.state = {
       x: 0,
       y: 0,
-      deg: 0,
-      opacity: 1,
       randomDeg: random(degMin, degMax),
       lenghtX: ( Math.random() < 0.5 ? -1 : 1 ) * ( random((width/24)*1.5, (width/24)*2) ),
-      lenghtY: random ( heightContainer/4, heightContainer - 100)
+      lenghtY: random ( heightContainer/4, heightContainer - 100),
+      deg: 0,
+      // opacity: 1,
+      scale: 0,
+      xP: 0,
+      yP: 0
     };
   }
   componentDidMount(){
@@ -70,22 +73,23 @@ class Tweet extends Component {
       this.setState({
         x: this.state.x + oneFrame,
         y: easeOutCubic(myTime, 0, this.state.lenghtY, animationTime),
+        yP: easeOutCubic(myTime, 0, this.state.lenghtY, animationTime),
+        xP: ( Math.random() < 0.5 ? -1 : 1 ) * ( easeOutCubic(myTime, 0, this.state.lenghtY, animationTime) ),
         deg: this.state.deg + this.state.randomDeg,
-        opacity: this.state.opacity - 0.01
+        scale: this.state.scale + 0.04
       });
     } else if (myTime > animationTime*1 && myTime < animationTime*2) {
       this.setState({
         x: this.state.x + oneFrame,
         y: easeInCubic(myTime - animationTime*1, this.state.lenghtY, -this.state.lenghtY, animationTime),
         deg: this.state.deg + this.state.randomDeg,
-        opacity: this.state.opacity - 0.01
+        // opacity: this.state.opacity - 0.05
       });
     } else if (myTime > animationTime*2 && myTime < animationTime*3) {
       this.setState({
         x: this.state.x + (oneFrame * 0.8),
         y: (easeOutCubic(myTime - animationTime*2, 0, this.state.lenghtY, animationTime)) * 0.8,
-        deg: this.state.deg + this.state.randomDeg,
-        opacity: this.state.opacity - 0.01
+        deg: this.state.deg + this.state.randomDeg
       });
     } else if (myTime > animationTime*3 && myTime < animationTime*4) {
       this.setState({
@@ -133,12 +137,12 @@ class Tweet extends Component {
     };
     var styleP = {
       position: 'absolute',
-      transform: 'translateX('+ this.state.x +'px) translateY('+ -this.state.y +'px) rotate('+ tiltHashtag +'deg)',
-      marginTop: heightContainer - 80,
+      transform: 'scale('+ this.state.scale +') translateX('+ this.state.xP +'px) translateY('+ -this.state.yP +'px) rotate('+ tiltHashtag +'deg)',
+      marginTop: heightContainer,
       marginLeft: marginLeft,
       color: colorHashtag,
       fontSize: fontSizeHashtag,
-      opacity: this.state.opacity
+      // opacity: this.state.opacity
     };
     return <div style={styleTweet} className="tweet">
       <img src={profilePicture} style={styleImg} onLoad={() => this.updatePosition()} />
