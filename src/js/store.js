@@ -6,7 +6,7 @@ function wall(state = [], action) {
   const {post, type} = action;
   switch(type){
     case 'NEW_POST':
-      return [...state, post].slice(0,limit);
+      return [...state, post].slice(-limit);
     default: 
       return state;
   }

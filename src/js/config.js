@@ -1,6 +1,6 @@
 
 // main settings
-export const limit = 50;
+export const limit = 10;
 export const animationTime = 500;
 
 // container
