@@ -23,6 +23,7 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 public/main.js
 public/styles.css
+public/style.css
 
 # Dependency directory
 node_modules
