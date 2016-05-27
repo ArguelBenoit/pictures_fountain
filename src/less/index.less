@@ -1,15 +1,23 @@
-
-body {
-  background: rgba(0,0,0,0.9);
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
+  overflow-y: hidden;
+}
+iframe {
+  border: 0px;
+  height: 100%;
 }
 .container {
-  margin: 20% auto 0 auto;
-  background: rgba(255,255,255,0.08);
-  .tweet {
-    overflow: hidden;
-    p { font-family: 'lato'; }
+  position: absolute;
+  bottom: 0px;
+  pointer-events: none;
+  .tweet { overflow: hidden;
+    p {
+      font-family: 'lato';
+      font-weight: bold;
+      text-shadow: 1px 1px 0px rgba(60, 60, 60, 1);
+    }
     img { border-radius: 50%; }
   }
 }

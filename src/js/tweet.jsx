@@ -32,9 +32,6 @@ window.addEventListener('resize', reSize);
 function random(min, max) {
   return Math.random() * (max - min) + min;
 }
-function randomXP(min, max) {
-  return Math.random() * (max - min) + min;
-}
 function easeOutCubic(time, value, changeValue, duration) {
   return changeValue*((time=time/duration-1)*time*time + 1) + value;
 }
@@ -148,11 +145,13 @@ class Tweet extends Component {
       opacity: this.state.opacity
     };
     return <div style={styleTweet} className="tweet">
-      <img src={profilePicture} style={styleImg} onLoad={() => this.updatePosition()} />
+      <img id="test" src={profilePicture} style={styleImg} onLoad={() => this.updatePosition()} />
       <p style={styleP}>{hashtag}</p>
     </div>;
   }
 }
+
+
 
 Tweet.propTypes = {
   index: PropTypes.number,

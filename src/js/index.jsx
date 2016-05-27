@@ -6,7 +6,7 @@ import Fountain from './fountain.jsx';
 import store from './store';
 import { limit } from './config';
 
-const {connect, load} = createConnection('uefa');
+const {connect, load} = createConnection('overwatch');
 
 function dispatchPost(post) {
   store.dispatch({

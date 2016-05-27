@@ -8,14 +8,20 @@ function Fountain(props) {
   var styleContainer = {
     width: widthContainer,
     height: heightContainer,
-    marginLeft: 'auto'
+    marginLeft: ( window.innerWidth - widthContainer ) / 2
   };
   var widthViewport = window.innerWidth;
   if(widthViewport < widthContainer) {
-    styleContainer.width = widthViewport - 20;
-    styleContainer.marginLeft = 10;
+    styleContainer.width = widthViewport;
   }
-  return <div className="container" style={styleContainer}>
+  function reSize() {
+    if(window.innerWidth < widthContainer) {
+      styleContainer.width = window.innerWidth;
+      styleContainer.marginLeft = 0;
+    }
+  }
+  window.addEventListener('resize', reSize);
+  return <div className="container" id="container" style={styleContainer}>
     {tweets.map((item, i) => <Tweet key={item._id} index={i} {...item} />)}
   </div>;
 }
