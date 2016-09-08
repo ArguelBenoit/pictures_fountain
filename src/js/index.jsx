@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import Fountain from './fountain.jsx';
 import store from './store';
-import { limit } from './config';
+import { limit, stream } from './config';
 
-const {connect, load} = createConnection('overwatch');
+const {connect, load} = createConnection(stream);
 
 function dispatchPost(post) {
   store.dispatch({
