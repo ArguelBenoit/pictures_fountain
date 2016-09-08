@@ -4,9 +4,10 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import Fountain from './fountain.jsx';
 import store from './store';
-import { limit, stream } from './config';
+import { limit } from './config';
 
-const {connect, load} = createConnection(stream);
+const stream = document.location.hash;
+const {connect, load} = createConnection(stream.substring(1));
 
 function dispatchPost(post) {
   store.dispatch({

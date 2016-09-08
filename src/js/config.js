@@ -1,6 +1,5 @@
 
 // main settings
-export const stream = 'fddb2a40';
 export const limit = 0;
 export const animationTime = 400;
 
